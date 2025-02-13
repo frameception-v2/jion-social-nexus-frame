@@ -22,17 +22,36 @@ import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
 
-function ExampleCard() {
+function SocialLinks() {
+  const openLink = useCallback((url: string) => {
+    sdk.actions.openUrl(url);
+  }, []);
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Welcome to the Frame Template</CardTitle>
+        <CardTitle>My Social Links</CardTitle>
         <CardDescription>
-          This is an example card that you can customize or remove
+          Connect with me across the decentralized web
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <Label>Place content in a Card here.</Label>
+      <CardContent className="flex flex-col gap-3">
+        {SOCIAL_LINKS.map((link) => (
+          <button
+            key={link.name}
+            onClick={() => openLink(link.url)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            style={{ backgroundColor: link.color + '10' }}
+          >
+            <span className="text-2xl">{link.icon}</span>
+            <div className="text-left">
+              <h3 className="font-medium">{link.name}</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {new URL(link.url).hostname}
+              </p>
+            </div>
+          </button>
+        ))}
       </CardContent>
     </Card>
   );
@@ -140,7 +159,10 @@ export default function Frame() {
         <h1 className="text-2xl font-bold text-center mb-4 text-gray-700 dark:text-gray-300">
           {PROJECT_TITLE}
         </h1>
-        <ExampleCard />
+        <SocialLinks />
+        <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+          Updated daily with my latest links and content
+        </div>
       </div>
     </div>
   );
