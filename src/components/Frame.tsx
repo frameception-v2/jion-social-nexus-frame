@@ -20,7 +20,7 @@ import { base, optimism } from "wagmi/chains";
 import { useSession } from "next-auth/react";
 import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
-import { PROJECT_TITLE } from "~/lib/constants";
+import { PROJECT_TITLE, SOCIAL_LINKS } from "~/lib/constants";
 
 function SocialLinks() {
   const openLink = useCallback((url: string) => {
